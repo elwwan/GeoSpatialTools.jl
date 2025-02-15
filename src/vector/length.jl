@@ -16,8 +16,7 @@ end
 
 function line_length(multilinestring::MultiLineString, precision = nothing)
   total = 0
-  geometry = multilinestring.geometry
-  for line in geometry
+  for line in multilinestring.geometry
       total +=line_length(line)
   end
   return isnothing(precision) ? total : round(total, digits = precision)
