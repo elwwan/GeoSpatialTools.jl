@@ -16,7 +16,6 @@ function area(points::Vector{Vector{T}}) where T <: Tuple{Real, Real}
 	end
 end
 
-
 # Polygon function
 function area(polygon::Polygon, precision = nothing)
 	return isnothing(precision) ? area(polygon.geometry) : round(area(polygon.geometry), digits = precision)
