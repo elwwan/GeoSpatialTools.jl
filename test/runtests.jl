@@ -93,3 +93,15 @@ end
     @test area(MultiPolygon([polygon1, polygon2]), 3) == 100.415
 end
 
+@testset "Length" begin
+    @test_throws MethodError line_length(Point((0,0)))
+    @test_throws MethodError line_length(MultiPoint([Point((0,0)), Point((0,0))]))
+    @test_throws MethodError line_length(Polygon([[(0,0), (1,0), (1,1), (0,1)]]))
+    @test_throws MethodError line_length(MultiPolygon([Polygon([[(0,0), (1,0), (1,1), (0,1)]]), Polygon([[(0,0), (1,0), (1,1), (0,1)]])]))
+
+    @test line_length(LineString([(0,0), (0,1)])) == 1.0
+    @test line_length(LineString([(0,0), (1,1)]), 5) == 1.41421
+
+    @test line_length(MultiLineString([ LineString([(0,0), (0,1)]), LineString([(0,0), (0,1)]) ])) == 2.0
+    @test line_length(MultiLineString([ LineString([(0,0), (0,1)]), LineString([(0,0), (1,1)]) ]), 5) == 2.41421
+end
