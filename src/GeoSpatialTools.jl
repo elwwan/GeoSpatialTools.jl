@@ -10,4 +10,7 @@ module GeoSpatialTools
           GeometryCollection
   include("vector/area.jl")
   export area
+  include("vector/length.jl")
+  export line_length
+
 end
