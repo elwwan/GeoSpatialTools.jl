@@ -1,5 +1,4 @@
 module GeoSpatialTools
-
   include("vector/geometry_types.jl")
   export  AbstractGeometry,
           Point, 
@@ -11,5 +10,4 @@ module GeoSpatialTools
           GeometryCollection
   include("vector/area.jl")
   export area
-
 end
