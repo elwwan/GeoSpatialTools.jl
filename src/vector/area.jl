@@ -23,8 +23,7 @@ end
 # MultiPolygon function
 function area(multipolygon::MultiPolygon, precision = nothing)
 	total = 0
-	geometry = multipolygon.geometry
-	for polygon in geometry
+	for polygon in multipolygon.geometry
 		total += area(polygon)
 	end
 	return isnothing(precision) ? total : round(total, digits = precision)
