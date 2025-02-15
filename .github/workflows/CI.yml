@@ -1,5 +1,8 @@
 name: RunTests
 on: [push, pull_request]
+permissions:
+  actions: write
+  contents: read
 
 jobs:
   RunTests:
