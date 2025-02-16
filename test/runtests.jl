@@ -105,3 +105,22 @@ end
     @test line_length(MultiLineString([ LineString([(0,0), (0,1)]), LineString([(0,0), (0,1)]) ])) == 2.0
     @test line_length(MultiLineString([ LineString([(0,0), (0,1)]), LineString([(0,0), (1,1)]) ]), 5) == 2.41421
 end
+
+@testset "Bounding Box" begin
+    # Point
+    point = Point((0,0))
+    @test bounding_box(point) == [0,0,0,0]
+    point1 = Point((-5,5))
+    @test bounding_box(point1) == [-5,5,-5,5]
+
+    # MultiPoint
+    multipoint = MultiPoint([point, point1]) 
+    @test bounding_box(multipoint) == [-5.0, 0.0, 0.0, 5.0]
+
+    # LineString
+
+    linestring = LineString([(0,0), (1,1)])
+    @test bounding_box(linestring) == [0,0,1,1]
+    linestring1 = LineString([(5,5), (-8,-8)])
+    @test bounding_box(MultiLineString([linestring, linestring1])) == [-8.0, -8.0, 5.0, 5.0]
+end
