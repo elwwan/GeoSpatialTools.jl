@@ -23,3 +23,29 @@ end
 struct GeometryCollection <: AbstractGeometry
   geometry::Vector{AbstractGeometry}
 end
+
+# Equality
+import Base: ==
+
+function ==(a::Point, b::Point)
+  a.geometry == b.geometry
+end
+function ==(a::MultiPoint, b::MultiPoint)
+  a.geometry == b.geometry
+end
+function ==(a::LineString, b::LineString)
+  a.geometry == b.geometry
+end
+function ==(a::MultiLineString, b::MultiLineString)
+  a.geometry == b.geometry
+end
+function ==(a::Polygon, b::Polygon)
+  a.geometry == b.geometry
+end
+function ==(a::MultiPolygon, b::MultiPolygon)
+  a.geometry == b.geometry
+end
+function ==(a::GeometryCollection, b::GeometryCollection)
+  a.geometry == b.geometry
+
+end
