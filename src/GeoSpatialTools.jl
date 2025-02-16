@@ -12,5 +12,9 @@ module GeoSpatialTools
   export area
   include("vector/length.jl")
   export line_length
+  include("vector/bounding_box.jl")
+  export bounding_box
+  include("vector/enveloppe.jl")
+  export envelope
 
 end
