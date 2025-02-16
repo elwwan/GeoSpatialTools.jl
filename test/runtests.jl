@@ -19,10 +19,34 @@ using Test
     @test isa(Point((0,0)), Point)
     @test isa(Point((0.0,0.0)), Point)
     @test isa(Point((1/3, 1/25)), Point)
+    @test Point((0,0)) == Point((0,0)) # Equality
 
     # MultiPoint
     @test_throws MethodError MultiPoint([Point((0,0), 0)])
     @test isa(MultiPoint([Point((0,0)), Point((0,0))]), MultiPoint)
+    MultiPoint([Point((0,0)), Point((0,0))]) == MultiPoint([Point((0,0)), Point((0,0))]) # Equality
+
+
+    # LineString
+    @test_throws MethodError LineString([("0",0), (1,0)])
+    @test_throws MethodError LineString([(0), (1,0)])
+    @test_throws MethodError LineString([(0,0,0), (1,0)])
+    @test_throws MethodError LineString([(0.0, 0), (1,0)])
+    @test isa(LineString([(0,0), (1,0)]), LineString)
+    @test isa(LineString([(0.0,0.0), (1.0,0.0)]), LineString)
+    @test isa(LineString([(0,0), (1,0), (1,1), (0,1)]), LineString)
+    @test LineString([(0,0), (1,0)]) == LineString([(0,0), (1,0)]) # Equality
+
+    # MultiLineString
+    @test_throws MethodError MultiLineString([LineString([(0,0), (1,0)]), "invalid"])
+    @test isa(MultiLineString([LineString([(0,0), (1,0)])]), MultiLineString)
+    multilinestring = MultiLineString([
+        LineString([(0,0), (1,0)]),
+        LineString([(2,2), (3,2)])
+    ])
+    @test isa(multilinestring, MultiLineString)
+    @test multilinestring == multilinestring # Equality
+
 
     # Polygons
     @test_throws MethodError Polygon([[("0",0), (1,0), (1,1), (0,1)]])
@@ -33,32 +57,19 @@ using Test
     @test isa(Polygon([[(0.0,0.0), (1.0,0.0), (1.0,1.0), (0.0,1.0)]]), Polygon)
     @test isa(Polygon([[(-1,-1), (2,-1), (2,2), (-1,2)], [(0,0), (1,0), (1,1), (0,1)]]), Polygon)
     @test isa(Polygon([[(-5,-5), (5,-5), (5,5), (-5,5)], [(-4,-4), (-2,-4), (-2,-2), (-4,-2)], [(2,2), (4,2), (4,4), (2,4)]]), Polygon)
-
+    @test Polygon([[(0,0), (1,0), (1,1), (0,1)]]) == Polygon([[(0,0), (1,0), (1,1), (0,1)]]) # Equality
+ 
     # MultiPolygon
     @test_throws MethodError MultiPolygon([Polygon([[(0,0), (1,0), (1,1), (0,1)]]), "invalid"])
     @test isa(MultiPolygon([Polygon([[(0,0), (1,0), (1,1), (0,1)]])]), MultiPolygon)
-    @test isa(MultiPolygon([
+    multipolygon = MultiPolygon([
         Polygon([[(0,0), (1,0), (1,1), (0,1)]]),
         Polygon([[(2,2), (3,2), (3,3), (2,3)]])
-    ]), MultiPolygon)
+    ])
+    @test isa(multipolygon, MultiPolygon)
+    @test multipolygon == multipolygon # Equality
 
-    # LineString
-    @test_throws MethodError LineString([("0",0), (1,0)])
-    @test_throws MethodError LineString([(0), (1,0)])
-    @test_throws MethodError LineString([(0,0,0), (1,0)])
-    @test_throws MethodError LineString([(0.0, 0), (1,0)])
-    @test isa(LineString([(0,0), (1,0)]), LineString)
-    @test isa(LineString([(0.0,0.0), (1.0,0.0)]), LineString)
-    @test isa(LineString([(0,0), (1,0), (1,1), (0,1)]), LineString)
-
-    # MultiLineString
-    @test_throws MethodError MultiLineString([LineString([(0,0), (1,0)]), "invalid"])
-    @test isa(MultiLineString([LineString([(0,0), (1,0)])]), MultiLineString)
-    @test isa(MultiLineString([
-        LineString([(0,0), (1,0)]),
-        LineString([(2,2), (3,2)])
-    ]), MultiLineString)
-
+    
     # GeometryCollection
     @test_throws MethodError GeometryCollection(["invalid"])
     @test isa(GeometryCollection([
@@ -66,11 +77,14 @@ using Test
         LineString([(0,0), (1,0)]),
         Polygon([[(0,0), (1,0), (1,1), (0,1)]])
     ]), GeometryCollection)
-    @test isa(GeometryCollection([
+    geometrycollection = GeometryCollection([
         MultiPoint([Point((0,0)), Point((1,1))]),
         MultiLineString([LineString([(0,0), (1,0)])]),
         MultiPolygon([Polygon([[(0,0), (1,0), (1,1), (0,1)]])])
-    ]), GeometryCollection)
+    ])
+    @test isa(geometrycollection, GeometryCollection)
+    @test geometrycollection == geometrycollection # Equality
+
 end
 
 @testset "Area" begin
