@@ -8,7 +8,7 @@ using Test
     @test Point <: Geometry
     @test MultiPoint <: Geometry
     @test LineString <: Curve
-    @test MultiLineString
+    @test MultiLineString <: Geometry
     @test CircularString <: Curve
     @test CompoundCurve <: Curve
     @test MultiCurve <: Geometry
@@ -16,5 +16,5 @@ using Test
     @test MultiPolygon <: Geometry
     @test CurvePolygon <: Surface
     @test MultiSurface <: Geometry
-    @test GeometryCollection
+    @test GeometryCollection <: Geometry
 end
