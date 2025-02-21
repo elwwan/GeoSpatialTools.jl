@@ -1,20 +1,22 @@
 module GeoSpatialTools
   include("vector/geometry_types.jl")
-  export  AbstractGeometry,
-          Point, 
-          MultiPoint, 
-          Polygon, 
-          MultiPolygon, 
-          LineString, 
-          MultiLineString, 
+  export  Geometry,
+          Curve,
+          Surface,
+          Point,
+          MultiPoint,
+          LineString,
+          MultiLineString,
+          CircularString,
+          CompoundCurve,
+          MultiCurve,
+          Polygon,
+          MultiPolygon,
+          CurvePolygon,
+          MultiSurface,
           GeometryCollection
-  include("vector/area.jl")
-  export area
-  include("vector/length.jl")
-  export line_length
   include("vector/bounding_box.jl")
-  export bounding_box
-  include("vector/enveloppe.jl")
+  export BBox, bounding_box
+  include("vector/envelope.jl")
   export envelope
-
 end
