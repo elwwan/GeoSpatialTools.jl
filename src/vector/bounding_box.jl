@@ -1,3 +1,4 @@
+import Base.==
 # Bounding Box
 mutable struct BBox
   minx::Real
@@ -5,7 +6,12 @@ mutable struct BBox
   maxx::Real
   maxy::Real
 end
-
+function ==(a::BBox, b::BBox)
+  a.maxx == b.maxx &&
+  a.maxy == b.maxy &&
+  a.minx == b.minx &&
+  a.miny == b.miny
+end
 function merge_bbox(a::BBox, b::BBox)
   return BBox(
       min(a.minx, b.minx),
