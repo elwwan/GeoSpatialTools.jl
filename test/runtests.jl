@@ -1,6 +1,7 @@
 using GeoSpatialTools
 using Test
 
+
 @testset "Geometry types" begin
     # Test types
     @test Curve <: Geometry
@@ -17,5 +18,9 @@ using Test
     @test CurvePolygon <: Surface
     @test MultiSurface <: Geometry
     @test GeometryCollection <: Geometry
-    
+end
+
+@testset "Equality checks" begin
+    # Point
+    @test Point(0,0) == Point(0,0)
 end
